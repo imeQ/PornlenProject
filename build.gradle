@@ -3,7 +3,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.6.RELEASE")
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.1.6.RELEASE"
+        classpath 'org.springframework:springloaded:1.2.0.RELEASE'
     }
 }
 apply plugin: 'java'
@@ -11,6 +12,13 @@ apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'maven'
 apply plugin: 'spring-boot'
+
+idea {
+    module {
+        inheritOutputDirs = false
+        outputDir = file("$buildDir/classes/main/")
+    }
+}
 
 sourceCompatibility = 1.8
 version = '1.0-SNAPSHOT'
