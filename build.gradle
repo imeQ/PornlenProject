@@ -1,0 +1,108 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.6.RELEASE")
+    }
+}
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'spring-boot'
+
+sourceCompatibility = 1.8
+version = '1.0-SNAPSHOT'
+
+//read springboot properties access prop: applicationProperties['my.prop']
+def applicationProperties = new Properties()
+new File("$projectDir/src/main/resources/application.properties").withInputStream {
+    stream -> applicationProperties.load(stream)
+}
+
+//refersh changing deps always
+configurations.all {
+    resolutionStrategy {
+        cacheChangingModulesFor 0, "seconds"
+    }
+    exclude group: 'org.mockito'
+}
+
+repositories {
+    mavenCentral()
+    maven { url "http://repository.primefaces.org" }
+    maven { url "https://github.com/dasAnderl/maven-repo/raw/master/snapshots" }
+    maven { url "https://github.com/dasAnderl/maven-repo/raw/master/releases" }
+}
+
+def versionSpring = "4.1.0.RELEASE"
+
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-data-jpa",
+            "org.springframework.boot:spring-boot-starter-actuator",
+            "org.springframework.boot:spring-boot-starter-jetty",
+            "org.springframework.boot:spring-boot-starter-security",
+            "org.springframework.boot:spring-boot-starter-logging",
+            "org.springframework.boot:spring-boot-starter-amqp",
+            "org.springframework:spring-web:$versionSpring",
+            "org.springframework:spring-webmvc:$versionSpring",
+            "org.springframework.data:spring-data-jpa:1.7.0.RELEASE",
+            "com.h2database:h2",
+            'org.hibernate:hibernate-core',
+            'org.hibernate.javax.persistence:hibernate-jpa-2.1-api',
+            "org.primefaces:primefaces:5.0",
+            "com.sun.faces:jsf-api:2.+",
+            "com.sun.faces:jsf-impl:2.+",
+            "org.hibernate:hibernate-validator",
+            'com.google.guava:guava:18.0',
+            'com.google.guava:guava-collections:r03',
+            "javax.validation:validation-api",
+            "org.codehaus.groovy:groovy-all"
+//    compile("com.pornlen:hibernate-ext-java8:1.0-SNAPSHOT") { changing = true }
+
+    testCompile "org.springframework.boot:spring-boot-starter-test",
+            'com.googlecode.jmockit:jmockit:1.7',
+            'junit:junit:jar',
+            'com.jayway.jsonpath:json-path:0.9.1'
+
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.1'
+}
+
+task bootRestart << {
+    bootStop.execute()
+    clean.execute()
+    compileJava.execute()
+    compileGroovy.execute()
+    processResources.execute()
+    classes.execute()
+    findMainClass.execute()
+    bootRun.execute()
+}
+
+task bootStop() {
+    def port = applicationProperties["server.port"]
+    def command = "curl -X POST localhost:$port/shutdown"
+    def proc = command.execute()
+    proc.waitFor()
+}
+
+//task rabbitMqStart() {
+//    def command2 = "rabbitmq-server -detached"
+//    def proc2 = command2.execute()
+//    proc2.waitFor()
+//}
+//
+//task rabbitMqStop() {
+//    def command = "rabbitmqctl stop"
+//    def proc = command.execute()
+//    proc.waitFor()
+//}
+
+sourceSets.main.java.srcDirs = []
+sourceSets.test.java.srcDirs = []
+sourceSets.main.groovy.srcDirs = ["src/main/java"]
+sourceSets.test.groovy.srcDirs = ["src/test/java"]
