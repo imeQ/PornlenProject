@@ -58,6 +58,7 @@ dependencies {
             'com.google.guava:guava:18.0',
             'com.google.guava:guava-collections:r03',
             "javax.validation:validation-api",
+            'postgresql:postgresql:9.1-901-1.jdbc4',
             "org.codehaus.groovy:groovy-all"
 //    compile("com.pornlen:hibernate-ext-java8:1.0-SNAPSHOT") { changing = true }
 
