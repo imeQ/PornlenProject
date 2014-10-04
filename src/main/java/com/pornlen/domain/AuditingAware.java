@@ -13,7 +13,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.List;
 
 @Component
-public class AuditingAware implements AuditorAware<User> {
+public class AuditingAware implements AuditorAware<ApplicationUser> {
 
     private final static Logger log = LoggerFactory.getLogger(AuditingAware.class);
 
@@ -21,23 +21,23 @@ public class AuditingAware implements AuditorAware<User> {
     private UserRepository userRepository;
 
     @Override
-    public User getCurrentAuditor() {
+    public ApplicationUser getCurrentAuditor() {
         //TODO fix me with proper logic in prod
         log.warn("here we dynamically create a user for audting. Fix in prod");
         SecurityContext securityContext = SecurityContextHolder.getContext();
         if (securityContext.getAuthentication() == null) {
-            User randomUser = DomainProvider.getRandomUser();
-            userRepository.save(randomUser);
-            return randomUser;
+            ApplicationUser randomApplicationUser = DomainProvider.getRandomUser();
+            userRepository.save(randomApplicationUser);
+            return randomApplicationUser;
         }
         String userName = securityContext.getAuthentication().getName();
-        List<User> userByName = userRepository.findByName(userName);
-        if (CollectionUtils.isEmpty(userByName)) {
-            User user = new User();
-            user.setName(userName);
-            userRepository.save(user);
-            return user;
+        List<ApplicationUser> applicationUserByName = userRepository.findByName(userName);
+        if (CollectionUtils.isEmpty(applicationUserByName)) {
+            ApplicationUser applicationUser = new ApplicationUser();
+            applicationUser.setName(userName);
+            userRepository.save(applicationUser);
+            return applicationUser;
         }
-        return userByName.get(0);
+        return applicationUserByName.get(0);
     }
 }

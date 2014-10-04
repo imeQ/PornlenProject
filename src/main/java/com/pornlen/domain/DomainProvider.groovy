@@ -29,7 +29,7 @@ class DomainProvider {
                 ]);
     }
 
-    static User getRandomUser() {
-        return new User(name: "userName" + +new Random().nextInt(100))
+    static ApplicationUser getRandomUser() {
+        return new ApplicationUser(name: "userName" + +new Random().nextInt(100))
     }
 }

@@ -21,13 +21,13 @@ public abstract class AuditableEntity extends AbstractEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
     @NotNull
-    private User createdBy;
+    private ApplicationUser createdBy;
 
     @LastModifiedBy
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
     @NotNull
-    private User lastModifiedBy;
+    private ApplicationUser lastModifiedBy;
 
     public Date getCreatedDate() {
         return createdDate;
@@ -37,19 +37,19 @@ public abstract class AuditableEntity extends AbstractEntity {
         this.createdDate = createdDate;
     }
 
-    public User getCreatedBy() {
+    public ApplicationUser getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(User createdBy) {
+    public void setCreatedBy(ApplicationUser createdBy) {
         this.createdBy = createdBy;
     }
 
-    public User getLastModifiedBy() {
+    public ApplicationUser getLastModifiedBy() {
         return lastModifiedBy;
     }
 
-    public void setLastModifiedBy(User lastModifiedBy) {
+    public void setLastModifiedBy(ApplicationUser lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
     }
 }
