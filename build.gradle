@@ -5,6 +5,7 @@ buildscript {
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:1.1.6.RELEASE"
         classpath 'org.springframework:springloaded:1.2.0.RELEASE'
+        classpath "org.flywaydb:flyway-gradle-plugin:3.0"
     }
 }
 apply plugin: 'java'
@@ -12,12 +13,19 @@ apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'maven'
 apply plugin: 'spring-boot'
+apply plugin: 'flyway'
 
 idea {
     module {
         inheritOutputDirs = false
         outputDir = file("$buildDir/classes/main/")
     }
+}
+
+flyway {
+    url = "jdbc:postgresql://localhost:5432/pornlen"
+    user = 'postgres'
+    password = 'postgres'
 }
 
 sourceCompatibility = 1.8
