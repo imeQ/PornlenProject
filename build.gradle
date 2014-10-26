@@ -23,9 +23,9 @@ idea {
 }
 
 flyway {
-    url = "jdbc:postgresql://localhost:5432/pornlen"
-    user = 'postgres'
-    password = 'postgres'
+    url = "jdbc:mysql://localhost:3306/pornlen"
+    user = 'root'
+    password = 'root'
 }
 
 sourceCompatibility = 1.8
@@ -75,6 +75,7 @@ dependencies {
             'com.google.guava:guava-collections:r03',
             "javax.validation:validation-api",
             'postgresql:postgresql:9.1-901-1.jdbc4',
+            'mysql:mysql-connector-java:5.1.16',
             "org.codehaus.groovy:groovy-all"
 //    compile("com.pornlen:hibernate-ext-java8:1.0-SNAPSHOT") { changing = true }
 

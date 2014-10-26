@@ -6,12 +6,7 @@ CREATE TABLE application_user
   last_modified_date timestamp without time zone NOT NULL,
   name character varying(255),
   CONSTRAINT application_user_pkey PRIMARY KEY (id)
-)
-WITH (
-OIDS=FALSE
 );
-ALTER TABLE application_user
-OWNER TO postgres;
 
 CREATE TABLE entity
 (
@@ -29,12 +24,7 @@ CREATE TABLE entity
   CONSTRAINT fk_entity_application_user_created_by FOREIGN KEY (created_by)
       REFERENCES application_user (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-WITH (
-  OIDS=FALSE
 );
-ALTER TABLE entity
-  OWNER TO postgres;
 
 CREATE TABLE nested_entity
 (
@@ -51,9 +41,4 @@ CREATE TABLE nested_entity
   CONSTRAINT fk_entity_nested_entity_batch10 FOREIGN KEY (entity_batch10)
   REFERENCES entity (id) MATCH SIMPLE
   ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-WITH (
-OIDS=FALSE
 );
-ALTER TABLE nested_entity
-OWNER TO postgres;
