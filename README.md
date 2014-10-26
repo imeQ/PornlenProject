@@ -17,38 +17,38 @@ gradle bootStop (just intellijs stop button does not work and so you are able to
 Features so far
 ===============
 
-spring and java might be mixed (only one main/test src folder for both) -> enjoy groovy coding in src/main/java
+- spring and java might be mixed (only one main/test src folder for both) -> enjoy groovy coding in src/main/java
 
-websecurity with spring
+- websecurity with spring
 
-example jsf/primefaces view on localhost:port/index.jsf
+- example jsf/primefaces view on localhost:port/index.jsf
 
-jpa/hibernate on a MySQL db (open session in entitymanager pattern used)
+- jpa/hibernate on a MySQL db (open session in entitymanager pattern used)
 
-entity auditing
+- entity auditing
 
-h2console is enabled (localhost:port/h2console)
+- h2console is enabled (localhost:port/h2console)
 
-example rest endpoints (spring driven, localhost:port/rest/...)
+- example rest endpoints (spring driven, localhost:port/rest/...)
 
-amqp messaging (rabbit mq) //By default commented out
+- amqp messaging (rabbit mq) //By default commented out
 
-use of Spring Profiles
+- use of Spring Profiles
 
-tests are in place, using jmockit lib and also using spring mockmvc to test the rest endpoints 
+- tests are in place, using jmockit lib and also using spring mockmvc to test the rest endpoints
 
 
 Things to come:
 ===============
 
--open entitymanager in conversation fo long running business processes
+- open entitymanager in conversation fo long running business processes
 
--logging with log4j2 or logback
+- logging with log4j2 or logback
 
--flexible search/paging engine
+- flexible search/paging engine
 
--environment specific config
+- environment specific config
 
--configuration reloading mechanism (maybe via JMX)
+- configuration reloading mechanism (maybe via JMX)
 
--JMS endpoints
+- JMS endpoints
