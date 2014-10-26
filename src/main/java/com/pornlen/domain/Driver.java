@@ -78,4 +78,5 @@ public class Driver extends AuditableEntity {
     public void setScheduleSet(Set<Schedule> scheduleSet) {
         this.scheduleSet = scheduleSet;
     }
+
 }
