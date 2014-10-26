@@ -29,6 +29,8 @@ public abstract class AuditableEntity extends AbstractEntity {
     @NotNull
     private ApplicationUser lastModifiedBy;
 
+    private Boolean deleted = false;
+
     public Date getCreatedDate() {
         return createdDate;
     }
@@ -51,5 +53,13 @@ public abstract class AuditableEntity extends AbstractEntity {
 
     public void setLastModifiedBy(ApplicationUser lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 }

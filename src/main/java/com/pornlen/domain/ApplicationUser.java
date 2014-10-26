@@ -1,7 +1,7 @@
 package com.pornlen.domain;
 
 @javax.persistence.Entity
-public class ApplicationUser extends  AbstractEntity{
+public class ApplicationUser extends AbstractEntity {
 
     private String name;
 
