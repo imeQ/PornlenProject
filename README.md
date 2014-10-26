@@ -1,10 +1,18 @@
 Pornlen
 ==========================
 
-Pornlen project based on Java8, Groovy, Gradle, SpringBoot, Jetty, Spring web security, Jsf, Primefaces, Hibernate and H2 Db
+Pornlen project based on Java8, Groovy, Gradle, SpringBoot, SpringLoader, Jetty, Spring web security, Jsf, Primefaces, FlyWay, Hibernate and MySQL
 
-to start call gradle task bootRun, 
-to stop call gradle task bootStop (just intellijs stop button does not work and so you are able to use debugging features)
+To run the project for the first time:
+
+1. Execute FlyWay migrations:
+gradle flywayMigrate
+
+2. Execute gradle task which starts the server:
+gradle bootRestart
+
+3. To stop the server:
+gradle bootStop (just intellijs stop button does not work and so you are able to use debugging features)
 
 Features so far
 ===============
@@ -15,7 +23,7 @@ websecurity with spring
 
 example jsf/primefaces view on localhost:port/index.jsf
 
-jpa/hibernate on a h2 db (open session in entitymanager pattern used)
+jpa/hibernate on a MySQL db (open session in entitymanager pattern used)
 
 entity auditing
 
@@ -23,7 +31,7 @@ h2console is enabled (localhost:port/h2console)
 
 example rest endpoints (spring driven, localhost:port/rest/...)
 
-amqp messaging (rabbit mq)
+amqp messaging (rabbit mq) //By default commented out
 
 use of Spring Profiles
 
