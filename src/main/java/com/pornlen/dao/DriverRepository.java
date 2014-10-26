@@ -12,11 +12,11 @@ import java.util.List;
 @ManagedBean//only for autocompletion in xhtml. annotation not working
 public interface DriverRepository extends CrudRepository<Driver, Long> {
 
-    @Query("from Driver d where d.pin = ?1 and d.deleted is false")
+    @Query("from Driver d where d.pin = ?1 and d.deleted = false")
     List<Driver> findByPin(String pin);
 
     @Override
-    @Query("from Driver d where d.deleted is false")
+    @Query("from Driver d where d.deleted = false")
     List<Driver> findAll();
 
     @Query("from Driver d")
