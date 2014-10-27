@@ -31,19 +31,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/public/**").permitAll()
-                .anyRequest().hasRole("USER")
-                .and()
-                .formLogin() // enable form based log in
-                .defaultSuccessUrl("/index.xhtml")
-                .permitAll()
-                .and()
-                .sessionManagement()
-                .sessionFixation()
-                .newSession()   // migrate session creates exeptions
-                .and()
-                .csrf()  //cross site request forgery, without disabling login doesnt work
-                .disable();
+                .antMatchers("/**"). permitAll();
+//                .anyRequest().hasRole("USER")
+//                .and()
+//                .formLogin() // enable form based log in
+//                .defaultSuccessUrl("/index.xhtml")
+//                .permitAll()
+//                .and()
+//                .sessionManagement()
+//                .sessionFixation()
+//                .newSession()   // migrate session creates exeptions
+//                .and()
+//                .csrf()  //cross site request forgery, without disabling login doesnt work
+//                .disable();
     }
 
     @Configuration

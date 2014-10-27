@@ -5,9 +5,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TestService {
+public class UserService {
 
-    public String getUserNameFromService() {
+    public String getLoggedUserName() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return user.getUsername();
     }

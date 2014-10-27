@@ -1,30 +1,30 @@
 package com.pornlen.dao;
 
-import com.pornlen.domain.Driver;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.faces.bean.ManagedBean;
 import java.util.List;
 
-@ManagedBean//only for autocompletion in xhtml. annotation not working
-public interface DriverRepository extends CrudRepository<Driver, Long> {
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.pornlen.domain.Driver;
+
+@Repository
+public interface DriverRepository extends PagingAndSortingRepository<Driver, Long> {
 
     @Query("from Driver d where d.pin = ?1 and d.deleted = false")
-    List<Driver> findByPin(String pin);
+    List<Driver> findByPin(Integer pin);
 
-    @Override
-    @Query("from Driver d where d.deleted = false")
+    @Query("from Driver d where d.deleted = false order by d.pin")
+    List<Driver> findAllActives();
+
+    @Query("from Driver d order by d.pin")
     List<Driver> findAll();
-
-    @Query("from Driver d")
-    List<Driver> findAllWithDeleted();
 
     @Modifying
     @Transactional(readOnly = false)
     @Query("update Driver d set d.deleted = true where d.pin = ?1")
-    Integer softDelete(String pin);
+    Integer softDelete(Integer pin);
 
 }

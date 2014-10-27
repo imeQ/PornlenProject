@@ -5,67 +5,34 @@
     <h:head/>
     <h:body>
         <h:form prependId="false">
-            <h:panelGrid
-                    columns="3">
-
-                <p:outputLabel for="@next" value="small number (less than 10)"/>
-                <p:inputText value="#{smallNumberBean.smallNumber}" required="true" label="small number"
-                             id="smallNumberID"/>
-                <p:message for="@previous"/>
-                <p:commandButton validateClient="true" value="validate" actionListener="#{smallNumberBean.showErrors}"
-                                 update="@parent:@parent"/>
-                <br/>
-            </h:panelGrid>
-            <p:commandButton value="save new TestEntity" actionListener="#{testController.saveTestEntity()}"
-                             process="@this"
-                             update="@parent"/>
+            
 
             <br/>
+		<p:calendar></p:calendar>
+           
+         <p:dataTable value="#{driverController.drivers}" var="item" emptyMessage="Brak wynikow">
+         	<f:facet name="header">Kierowcy jebani</f:facet>
+         	<p:column headerText="Id" >
+         		<p:outputLabel value="#{item.id}"/>
+         	</p:column>
+         	
+         	<p:column headerText="Pin" >
+         		<p:outputLabel value="#{item.pin}"/>
+         	</p:column>
+         </p:dataTable>
 
-            <p:dataTable var="entity" value="#{entityRepository.findAll()}">
-                <f:facet name="header">
-                    Entities and nested entities
-                </f:facet>
-
-                <p:columnGroup type="header">
-                    <p:row>
-                        <p:column/>
-                        <p:column headerText="Id"/>
-                        <p:column headerText="Name"/>
-                        <p:column headerText="Age"/>
-
-                    </p:row>
-                </p:columnGroup>
-
-                <p:subTable var="nested" value="#{entity.nestedEntitiesBatch10}">
-                    <p:columnGroup type="header">
-                        <p:row>
-                            <p:column headerText="Entity"/>
-                            <p:column headerText="#{entity.id}"/>
-                            <p:column headerText="#{entity.name}"/>
-                            <p:column headerText="#{entity.age}"/>
-                        </p:row>
-                        <p:row>
-                            <p:column colspan="4" headerText="NestedEntities"/>
-                        </p:row>
-                    </p:columnGroup>
-                    <p:column/>
-                    <p:column>
-                        <h:outputText value="#{nested.id}"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{nested.nestedName}"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{nested.nestedAge}"/>
-                    </p:column>
-                </p:subTable>
-            </p:dataTable>
-
-            <br/>
-            Current user name : #{testController.userName}
-            <br/>
-
+		<p:separator/>
+		
+		<p:dataTable value="#{userController.users}" var="item" emptyMessage="Brak wynikow">
+         	<f:facet name="header">Users</f:facet>
+         	<p:column headerText="Id" >
+         		<p:outputLabel value="#{item.id}"/>
+         	</p:column>
+         	
+         	<p:column headerText="Name" >
+         		<p:outputLabel value="#{item.name}"/>
+         	</p:column>
+         </p:dataTable>
         </h:form>
     </h:body>
 </f:view>

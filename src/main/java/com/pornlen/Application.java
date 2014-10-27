@@ -1,9 +1,13 @@
 package com.pornlen;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+
 import org.h2.server.web.WebServlet;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.context.embedded.ServletContextInitializer;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +20,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @ComponentScan
 @EnableJpaAuditing(auditorAwareRef = "auditingAware")
 @EnableConfigurationProperties //use this to register other properties sources e.g. property files
-public class Application {
+public class Application implements ServletContextInitializer {
 
     @Value("${h2.console.url.mapping}")
     private String h2ConsoleUrlMapping;
@@ -31,4 +35,10 @@ public class Application {
         registration.addUrlMappings(h2ConsoleUrlMapping);
         return registration;
     }
+
+	@Override
+	public void onStartup(ServletContext servletContext)throws ServletException {
+		servletContext.setInitParameter("primefaces.THEME", "sunny");
+	}
+    
 }

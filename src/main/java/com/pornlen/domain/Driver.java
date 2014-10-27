@@ -13,21 +13,21 @@ import java.util.Set;
 @javax.persistence.Entity
 public class Driver extends AuditableEntity {
 
-    private String pin;
+    private Integer pin;
     private String firstName;
     private String lastName;
-    private String password;
+    private Integer password;
     private String location;
     private Date lastLoginDate;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "driver")
     private Set<Schedule> scheduleSet = new HashSet<Schedule>(0);
 
-    public String getPin() {
+    public Integer getPin() {
         return pin;
     }
 
-    public void setPin(String pin) {
+    public void setPin(Integer pin) {
         this.pin = pin;
     }
 
@@ -47,11 +47,11 @@ public class Driver extends AuditableEntity {
         this.lastName = lastName;
     }
 
-    public String getPassword() {
+    public Integer getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(Integer password) {
         this.password = password;
     }
 

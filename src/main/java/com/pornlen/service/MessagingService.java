@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MessagingService {
 
+	//WHAT IS THIS FOR
     public void receiveMessage(Object message) {
         System.out.println("Amqp msg received <" + message + ">");
     }
