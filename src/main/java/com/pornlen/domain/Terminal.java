@@ -1,80 +1,114 @@
 package com.pornlen.domain;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import java.util.HashSet;
-import java.util.Set;
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
+
 
 /**
- * Created by lolcat on 26.10.14.
+ * The persistent class for the terminal database table.
+ * 
  */
+@Entity
+@Table(name="terminal")
+public class Terminal implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-@javax.persistence.Entity
-public class Terminal extends AbstractEntity {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(unique=true, nullable=false)
+	private int id;
 
-    private String code;
+	@Column(length=255)
+	private String code;
 
-    private String name;
+	@Column(name="expected_unloading", length=255)
+	private String expectedUnloading;
 
-    private String expectedUnloading;
+	@Column(name="expected_unloading_address", length=255)
+	private String expectedUnloadingAddress;
 
-    private String expectedUnloadingAddress;
+    @Temporal( TemporalType.TIMESTAMP)
+	@Column(name="last_modified_date", nullable=false)
+	private Date lastModifiedDate;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "terminal")
-    private Set<Schedule> scheduleSet = new HashSet<Schedule>(0);
+	@Column(length=255)
+	private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "unloadTerminal")
-    private Set<Schedule> scheduleUnloadSet = new HashSet<Schedule>(0);
+	//bi-directional many-to-one association to Schedule
+	@OneToMany(mappedBy="terminal1")
+	private List<Schedule> schedules1;
+
+	//bi-directional many-to-one association to Schedule
+	@OneToMany(mappedBy="terminal2")
+	private List<Schedule> schedules2;
 
     public Terminal() {
     }
 
-    public String getCode() {
-        return code;
-    }
+	public int getId() {
+		return this.id;
+	}
 
-    public void setCode(String code) {
-        this.code = code;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getCode() {
+		return this.code;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setCode(String code) {
+		this.code = code;
+	}
 
-    public String getExpectedUnloading() {
-        return expectedUnloading;
-    }
+	public String getExpectedUnloading() {
+		return this.expectedUnloading;
+	}
 
-    public void setExpectedUnloading(String expectedUnloading) {
-        this.expectedUnloading = expectedUnloading;
-    }
+	public void setExpectedUnloading(String expectedUnloading) {
+		this.expectedUnloading = expectedUnloading;
+	}
 
-    public String getExpectedUnloadingAddress() {
-        return expectedUnloadingAddress;
-    }
+	public String getExpectedUnloadingAddress() {
+		return this.expectedUnloadingAddress;
+	}
 
-    public void setExpectedUnloadingAddress(String expectedUnloadingAddress) {
-        this.expectedUnloadingAddress = expectedUnloadingAddress;
-    }
+	public void setExpectedUnloadingAddress(String expectedUnloadingAddress) {
+		this.expectedUnloadingAddress = expectedUnloadingAddress;
+	}
 
-    public Set<Schedule> getScheduleSet() {
-        return scheduleSet;
-    }
+	public Date getLastModifiedDate() {
+		return this.lastModifiedDate;
+	}
 
-    public void setScheduleSet(Set<Schedule> scheduleSet) {
-        this.scheduleSet = scheduleSet;
-    }
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
+	}
 
-    public Set<Schedule> getScheduleUnloadSet() {
-        return scheduleUnloadSet;
-    }
+	public String getName() {
+		return this.name;
+	}
 
-    public void setScheduleUnloadSet(Set<Schedule> scheduleUnloadSet) {
-        this.scheduleUnloadSet = scheduleUnloadSet;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<Schedule> getSchedules1() {
+		return this.schedules1;
+	}
+
+	public void setSchedules1(List<Schedule> schedules1) {
+		this.schedules1 = schedules1;
+	}
+	
+	public List<Schedule> getSchedules2() {
+		return this.schedules2;
+	}
+
+	public void setSchedules2(List<Schedule> schedules2) {
+		this.schedules2 = schedules2;
+	}
+	
 }
