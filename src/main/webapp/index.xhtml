@@ -19,6 +19,12 @@
          	<p:column headerText="Pin" >
          		<p:outputLabel value="#{item.pin}"/>
          	</p:column>
+         	
+         	<p:column headerText="Created by" >
+         		<p:outputLabel value="#{item.createdBy.name}"/>
+         	</p:column>
+         	
+         	
          </p:dataTable>
 
 		<p:separator/>

@@ -78,6 +78,7 @@ dependencies {
             'postgresql:postgresql:9.1-901-1.jdbc4',
             'mysql:mysql-connector-java:5.1.16',
             "org.codehaus.groovy:groovy-all"
+            'org.projectlombok:lombok-maven:1.14.8.0'
 //    compile("com.pornlen:hibernate-ext-java8:1.0-SNAPSHOT") { changing = true }
 
     testCompile "org.springframework.boot:spring-boot-starter-test",
