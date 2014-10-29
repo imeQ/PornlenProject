@@ -20,7 +20,7 @@ public class Schedule extends AbstractEntity {
 
     private float density;
 
-    private byte distributionFinished;
+    private Boolean distributionFinished;
 
     @Column(length = 255)
     private String forwarder;
@@ -127,11 +127,11 @@ public class Schedule extends AbstractEntity {
         this.density = density;
     }
 
-    public byte getDistributionFinished() {
-        return this.distributionFinished;
+    public Boolean getDistributionFinished() {
+        return distributionFinished;
     }
 
-    public void setDistributionFinished(byte distributionFinished) {
+    public void setDistributionFinished(Boolean distributionFinished) {
         this.distributionFinished = distributionFinished;
     }
 
