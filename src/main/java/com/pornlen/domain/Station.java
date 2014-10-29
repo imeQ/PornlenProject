@@ -1,6 +1,5 @@
 package com.pornlen.domain;
 
-import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -12,44 +11,29 @@ import java.util.List;
  */
 @Entity
 @Table(name="station")
-public class Station implements Serializable {
+public class Station extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
-	private int id;
-
     @Temporal( TemporalType.TIMESTAMP)
-	@Column(name="last_modified_date", nullable=false)
 	private Date lastModifiedDate;
 
-	@Column(name="mob_station_number", length=255)
+	@Column(length=255)
 	private String mobStationNumber;
 
 	@Column(length=255)
 	private String place;
 
-	@Column(name="sap_number", length=255)
+	@Column(length=255)
 	private String sapNumber;
 
 	@Column(length=255)
 	private String street;
 
-	//bi-directional many-to-one association to Schedule
-	@OneToMany(mappedBy="stationBean")
+	@OneToMany(mappedBy="schedule")
 	private List<Schedule> schedules;
 
     public Station() {
     }
-
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public Date getLastModifiedDate() {
 		return this.lastModifiedDate;
