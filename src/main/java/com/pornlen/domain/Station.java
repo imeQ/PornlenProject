@@ -29,7 +29,7 @@ public class Station extends AbstractEntity {
 	@Column(length=255)
 	private String street;
 
-	@OneToMany(mappedBy="schedule")
+	@OneToMany(mappedBy="station")
 	private List<Schedule> schedules;
 
     public Station() {
