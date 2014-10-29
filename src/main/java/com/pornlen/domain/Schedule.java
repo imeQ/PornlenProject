@@ -92,10 +92,9 @@ public class Schedule implements Serializable {
     @JoinColumn(name = "driver")
     private Driver driverBean;
 
-    //bi-directional many-to-one association to FuelType
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fuel_type")
-    private FuelType fuelTypeBean;
+    @JoinColumn(name = "fuelType")
+    private FuelType fuelType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "station")
@@ -324,12 +323,12 @@ public class Schedule implements Serializable {
         this.driverBean = driverBean;
     }
 
-    public FuelType getFuelTypeBean() {
-        return this.fuelTypeBean;
+    public FuelType getFuelType() {
+        return fuelType;
     }
 
-    public void setFuelTypeBean(FuelType fuelTypeBean) {
-        this.fuelTypeBean = fuelTypeBean;
+    public void setFuelType(FuelType fuelType) {
+        this.fuelType = fuelType;
     }
 
     public Station getStation() {
