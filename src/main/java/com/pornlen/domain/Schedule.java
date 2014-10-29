@@ -1,60 +1,50 @@
 package com.pornlen.domain;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
-
 
 /**
  * The persistent class for the schedule database table.
  */
 @Entity
 @Table(name = "schedule")
-public class Schedule implements Serializable {
+public class Schedule extends AbstractEntity {
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(unique = true, nullable = false)
-    private String id;
 
     @Column(length = 255)
     private String carrier;
 
-    @Column(name = "carrier_description", length = 255)
+    @Column(length = 255)
     private String carrierDescription;
 
     private float density;
 
-    @Column(name = "distribution_finished")
     private byte distributionFinished;
 
     @Column(length = 255)
     private String forwarder;
 
-    @Column(name = "forwarder_description", length = 255)
+    @Column(length = 255)
     private String forwarderDescription;
 
     private int kilograms;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "last_modified_date", nullable = false)
+    @Column(nullable = false)
     private Date lastModifiedDate;
 
     private int liters;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "loading_date")
     private Date loadingDate;
 
-    @Column(name = "order_number")
     private BigInteger orderNumber;
 
     @Column(length = 255)
     private String pool;
 
-    @Column(name = "pour_card_number", length = 255)
+    @Column(length = 255)
     private String pourCardNumber;
 
     @Column(length = 255)
@@ -63,34 +53,28 @@ public class Schedule implements Serializable {
     @Column(length = 255)
     private String region;
 
-    @Column(name = "reservation_number")
     private int reservationNumber;
 
-    @Column(name = "route_number")
     private int routeNumber;
 
-    @Column(name = "tds_number", length = 255)
+    @Column(length = 255)
     private String tdsNumber;
 
     private float temperature;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "unloading_date")
     private Date unloadingDate;
 
-    @Column(name = "weight_after")
     private int weightAfter;
 
-    @Column(name = "weight_amount_number", length = 255)
+    @Column(length = 255)
     private String weightAmountNumber;
 
-    @Column(name = "weight_before")
     private int weightBefore;
 
-    //bi-directional many-to-one association to Driver
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "driver")
-    private Driver driverBean;
+    private Driver driver;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fuelType")
@@ -100,35 +84,23 @@ public class Schedule implements Serializable {
     @JoinColumn(name = "station")
     private Station station;
 
-    //bi-directional many-to-one association to Terminal
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "terminal")
     private Terminal unloadTerminal;
 
-    //bi-directional many-to-one association to Terminal
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "terminal")
     private Terminal loadTerminal;
 
-    //bi-directional many-to-one association to Vehicle
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "truck")
-    private Vehicle vehicle1;
+    private Vehicle truck;
 
-    //bi-directional many-to-one association to Vehicle
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "semi_trailer")
-    private Vehicle vehicle2;
+    @JoinColumn(name = "truck")
+    private Vehicle semiTrailer;
 
     public Schedule() {
-    }
-
-    public String getId() {
-        return this.id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getCarrier() {
@@ -315,14 +287,6 @@ public class Schedule implements Serializable {
         this.weightBefore = weightBefore;
     }
 
-    public Driver getDriverBean() {
-        return this.driverBean;
-    }
-
-    public void setDriverBean(Driver driverBean) {
-        this.driverBean = driverBean;
-    }
-
     public FuelType getFuelType() {
         return fuelType;
     }
@@ -355,20 +319,27 @@ public class Schedule implements Serializable {
         this.loadTerminal = loadTerminal;
     }
 
-    public Vehicle getVehicle1() {
-        return this.vehicle1;
+    public Driver getDriver() {
+        return driver;
     }
 
-    public void setVehicle1(Vehicle vehicle1) {
-        this.vehicle1 = vehicle1;
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 
-    public Vehicle getVehicle2() {
-        return this.vehicle2;
+    public Vehicle getTruck() {
+        return truck;
     }
 
-    public void setVehicle2(Vehicle vehicle2) {
-        this.vehicle2 = vehicle2;
+    public void setTruck(Vehicle truck) {
+        this.truck = truck;
     }
 
+    public Vehicle getSemiTrailer() {
+        return semiTrailer;
+    }
+
+    public void setSemiTrailer(Vehicle semiTrailer) {
+        this.semiTrailer = semiTrailer;
+    }
 }
