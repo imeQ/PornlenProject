@@ -23,7 +23,7 @@ public class Driver implements Serializable {
     @Column(name = "created_date", nullable = false)
     private Date createdDate;
 
-    private byte deleted;
+    private Boolean deleted;
 
     @Column(name = "first_name", length = 255)
     private String firstName;
@@ -83,11 +83,11 @@ public class Driver implements Serializable {
         this.createdDate = createdDate;
     }
 
-    public byte getDeleted() {
-        return this.deleted;
+    public Boolean getDeleted() {
+        return deleted;
     }
 
-    public void setDeleted(byte deleted) {
+    public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
     }
 
