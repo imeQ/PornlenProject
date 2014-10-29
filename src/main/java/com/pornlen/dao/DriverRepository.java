@@ -17,9 +17,9 @@ public interface DriverRepository extends PagingAndSortingRepository<Driver, Lon
     List<Driver> findByPin(Integer pin);
 
     @Query("from Driver d where d.deleted = false order by d.pin")
-    List<Driver> findAllActives();
+    List<Driver> findAllActive();
 
-    @Query("from Driver d order by d.pin")
+    @Query("from Driver d")
     List<Driver> findAll();
 
     @Modifying

@@ -27,7 +27,7 @@ public class DriverEndpoint {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<Driver> findAll() {
-    	return Lists.newArrayList(driverRepository.findAllActives());
+    	return Lists.newArrayList(driverRepository.findAllActive());
     }
 
     @RequestMapping(value = "/pin/{pin}", method = RequestMethod.GET)
