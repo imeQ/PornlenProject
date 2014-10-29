@@ -14,7 +14,7 @@ public class DriverService {
     DriverRepository driverRepository;
 
     public List<Driver> getDrivers() {
-        return driverRepository.findAllActives();
+        return driverRepository.findAllActive();
     }
 
 }

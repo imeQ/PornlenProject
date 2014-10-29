@@ -1,82 +1,185 @@
 package com.pornlen.domain;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+
 
 /**
- * Created by lolcat on 26.10.14.
+ * The persistent class for the driver database table.
+ * 
  */
-@javax.persistence.Entity
-public class Driver extends AuditableEntity {
+@Entity
+@Table(name="driver")
+public class Driver implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-    private Integer pin;
-    private String firstName;
-    private String lastName;
-    private Integer password;
-    private String location;
-    private Date lastLoginDate;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(unique=true, nullable=false)
+	private int id;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "driver")
-    private Set<Schedule> scheduleSet = new HashSet<Schedule>(0);
+    @Temporal( TemporalType.TIMESTAMP)
+	@Column(name="created_date", nullable=false)
+	private Date createdDate;
 
-    public Integer getPin() {
-        return pin;
+	private byte deleted;
+
+	@Column(name="first_name", length=255)
+	private String firstName;
+
+    @Temporal( TemporalType.TIMESTAMP)
+	@Column(name="last_login_date")
+	private Date lastLoginDate;
+
+    @Temporal( TemporalType.TIMESTAMP)
+	@Column(name="last_modified_date", nullable=false)
+	private Date lastModifiedDate;
+
+	@Column(name="last_name", length=255)
+	private String lastName;
+
+	@Column(length=255)
+	private String location;
+
+	@Column(length=255)
+	private String password;
+
+	@Column(length=255)
+	private String pin;
+
+	//bi-directional many-to-one association to ApplicationUser
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="last_modified_by", nullable=false)
+	private ApplicationUser applicationUser1;
+
+	//bi-directional many-to-one association to ApplicationUser
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="created_by", nullable=false)
+	private ApplicationUser applicationUser2;
+
+	//bi-directional one-to-one association to DriverContract
+	@OneToOne(mappedBy="driverBean", fetch=FetchType.LAZY)
+	private DriverContract driverContract;
+
+	//bi-directional many-to-one association to Schedule
+	@OneToMany(mappedBy="driverBean")
+	private List<Schedule> schedules;
+
+    public Driver() {
     }
 
-    public void setPin(Integer pin) {
-        this.pin = pin;
-    }
+	public int getId() {
+		return this.id;
+	}
 
-    public String getFirstName() {
-        return firstName;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public Date getCreatedDate() {
+		return this.createdDate;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public byte getDeleted() {
+		return this.deleted;
+	}
 
-    public Integer getPassword() {
-        return password;
-    }
+	public void setDeleted(byte deleted) {
+		this.deleted = deleted;
+	}
 
-    public void setPassword(Integer password) {
-        this.password = password;
-    }
+	public String getFirstName() {
+		return this.firstName;
+	}
 
-    public String getLocation() {
-        return location;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
+	public Date getLastLoginDate() {
+		return this.lastLoginDate;
+	}
 
-    public Date getLastLoginDate() {
-        return lastLoginDate;
-    }
+	public void setLastLoginDate(Date lastLoginDate) {
+		this.lastLoginDate = lastLoginDate;
+	}
 
-    public void setLastLoginDate(Date lastLoginDate) {
-        this.lastLoginDate = lastLoginDate;
-    }
+	public Date getLastModifiedDate() {
+		return this.lastModifiedDate;
+	}
 
-    public Set<Schedule> getScheduleSet() {
-        return scheduleSet;
-    }
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
+	}
 
-    public void setScheduleSet(Set<Schedule> scheduleSet) {
-        this.scheduleSet = scheduleSet;
-    }
+	public String getLastName() {
+		return this.lastName;
+	}
 
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getLocation() {
+		return this.location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPin() {
+		return this.pin;
+	}
+
+	public void setPin(String pin) {
+		this.pin = pin;
+	}
+
+	public ApplicationUser getApplicationUser1() {
+		return this.applicationUser1;
+	}
+
+	public void setApplicationUser1(ApplicationUser applicationUser1) {
+		this.applicationUser1 = applicationUser1;
+	}
+	
+	public ApplicationUser getApplicationUser2() {
+		return this.applicationUser2;
+	}
+
+	public void setApplicationUser2(ApplicationUser applicationUser2) {
+		this.applicationUser2 = applicationUser2;
+	}
+	
+	public DriverContract getDriverContract() {
+		return this.driverContract;
+	}
+
+	public void setDriverContract(DriverContract driverContract) {
+		this.driverContract = driverContract;
+	}
+	
+	public List<Schedule> getSchedules() {
+		return this.schedules;
+	}
+
+	public void setSchedules(List<Schedule> schedules) {
+		this.schedules = schedules;
+	}
+	
 }

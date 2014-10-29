@@ -7,12 +7,12 @@ import java.util.List;
 
 
 /**
- * The persistent class for the station database table.
+ * The persistent class for the fuel_type database table.
  * 
  */
 @Entity
-@Table(name="station")
-public class Station implements Serializable {
+@Table(name="fuel_type")
+public class FuelType implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -24,23 +24,14 @@ public class Station implements Serializable {
 	@Column(name="last_modified_date", nullable=false)
 	private Date lastModifiedDate;
 
-	@Column(name="mob_station_number", length=255)
-	private String mobStationNumber;
-
 	@Column(length=255)
-	private String place;
-
-	@Column(name="sap_number", length=255)
-	private String sapNumber;
-
-	@Column(length=255)
-	private String street;
+	private String name;
 
 	//bi-directional many-to-one association to Schedule
-	@OneToMany(mappedBy="stationBean")
+	@OneToMany(mappedBy="fuelTypeBean")
 	private List<Schedule> schedules;
 
-    public Station() {
+    public FuelType() {
     }
 
 	public int getId() {
@@ -59,36 +50,12 @@ public class Station implements Serializable {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public String getMobStationNumber() {
-		return this.mobStationNumber;
+	public String getName() {
+		return this.name;
 	}
 
-	public void setMobStationNumber(String mobStationNumber) {
-		this.mobStationNumber = mobStationNumber;
-	}
-
-	public String getPlace() {
-		return this.place;
-	}
-
-	public void setPlace(String place) {
-		this.place = place;
-	}
-
-	public String getSapNumber() {
-		return this.sapNumber;
-	}
-
-	public void setSapNumber(String sapNumber) {
-		this.sapNumber = sapNumber;
-	}
-
-	public String getStreet() {
-		return this.street;
-	}
-
-	public void setStreet(String street) {
-		this.street = street;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public List<Schedule> getSchedules() {

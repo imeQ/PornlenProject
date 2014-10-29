@@ -1,313 +1,377 @@
 package com.pornlen.domain;
 
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
+import java.math.BigInteger;
+
 
 /**
- * Created by lolcat on 26.10.14.
+ * The persistent class for the schedule database table.
+ * 
  */
-@javax.persistence.Entity
-public class Schedule extends AbstractEntity {
+@Entity
+@Table(name="schedule")
+public class Schedule implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-    private Boolean distributionFinished;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(unique=true, nullable=false)
+	private String id;
 
-    private Integer liters;
+	@Column(length=255)
+	private String carrier;
 
-    private Integer routeNumber;
+	@Column(name="carrier_description", length=255)
+	private String carrierDescription;
 
-    private String tdsNumber;
+	private float density;
 
-    private String region;
+	@Column(name="distribution_finished")
+	private byte distributionFinished;
 
-    private String pool;
+	@Column(length=255)
+	private String forwarder;
 
-    private Integer reservationNumber;
+	@Column(name="forwarder_description", length=255)
+	private String forwarderDescription;
 
-    private Date loadingDate;
+	private int kilograms;
 
-    private Date unloadingDate;
+    @Temporal( TemporalType.TIMESTAMP)
+	@Column(name="last_modified_date", nullable=false)
+	private Date lastModifiedDate;
 
-    private String forwarder;
+	private int liters;
 
-    private String forwarderDescription;
+    @Temporal( TemporalType.TIMESTAMP)
+	@Column(name="loading_date")
+	private Date loadingDate;
 
-    private String carrier;
+	@Column(name="order_number")
+	private BigInteger orderNumber;
 
-    private String carrierDescription;
+	@Column(length=255)
+	private String pool;
 
-    private String weightAmountNumber;
+	@Column(name="pour_card_number", length=255)
+	private String pourCardNumber;
 
-    private Long orderNumber;
+	@Column(length=255)
+	private String propane;
 
-    private String pourCardNumber;
+	@Column(length=255)
+	private String region;
 
-    private Integer weightBefore;
+	@Column(name="reservation_number")
+	private int reservationNumber;
 
-    private Integer weightAfter;
+	@Column(name="route_number")
+	private int routeNumber;
 
-    private Integer kilogramsNumber;
+	@Column(name="tds_number", length=255)
+	private String tdsNumber;
 
-    private Float density;
+	private float temperature;
 
-    private Float temperature;
+    @Temporal( TemporalType.TIMESTAMP)
+	@Column(name="unloading_date")
+	private Date unloadingDate;
 
-    private String propane;
+	@Column(name="weight_after")
+	private int weightAfter;
 
-    @ManyToOne
-    private Truck truck;
+	@Column(name="weight_amount_number", length=255)
+	private String weightAmountNumber;
 
-    @ManyToOne
-    private Terminal terminal;
+	@Column(name="weight_before")
+	private int weightBefore;
 
-    @ManyToOne
-    private Terminal unloadTerminal;
+	//bi-directional many-to-one association to Driver
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="driver")
+	private Driver driverBean;
 
-    @ManyToOne
-    private Product product;
+	//bi-directional many-to-one association to FuelType
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="fuel_type")
+	private FuelType fuelTypeBean;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private SemiTrailer semiTrailer;
+	//bi-directional many-to-one association to Station
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="station")
+	private Station stationBean;
 
-    @ManyToOne
-    private Station station;
+	//bi-directional many-to-one association to Terminal
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="unload_terminal")
+	private Terminal terminal1;
 
-    @ManyToOne
-    private Driver driver;
+	//bi-directional many-to-one association to Terminal
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="load_terminal")
+	private Terminal terminal2;
+
+	//bi-directional many-to-one association to Vehicle
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="truck")
+	private Vehicle vehicle1;
+
+	//bi-directional many-to-one association to Vehicle
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="semi_trailer")
+	private Vehicle vehicle2;
 
     public Schedule() {
     }
 
-    public Boolean getDistributionFinished() {
-        return distributionFinished;
-    }
+	public String getId() {
+		return this.id;
+	}
 
-    public void setDistributionFinished(Boolean distributionFinished) {
-        this.distributionFinished = distributionFinished;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public Integer getLiters() {
-        return liters;
-    }
+	public String getCarrier() {
+		return this.carrier;
+	}
 
-    public void setLiters(Integer liters) {
-        this.liters = liters;
-    }
+	public void setCarrier(String carrier) {
+		this.carrier = carrier;
+	}
 
-    public Integer getRouteNumber() {
-        return routeNumber;
-    }
+	public String getCarrierDescription() {
+		return this.carrierDescription;
+	}
 
-    public void setRouteNumber(Integer routeNumber) {
-        this.routeNumber = routeNumber;
-    }
+	public void setCarrierDescription(String carrierDescription) {
+		this.carrierDescription = carrierDescription;
+	}
 
-    public String getTdsNumber() {
-        return tdsNumber;
-    }
+	public float getDensity() {
+		return this.density;
+	}
 
-    public void setTdsNumber(String tdsNumber) {
-        this.tdsNumber = tdsNumber;
-    }
+	public void setDensity(float density) {
+		this.density = density;
+	}
 
-    public String getRegion() {
-        return region;
-    }
+	public byte getDistributionFinished() {
+		return this.distributionFinished;
+	}
 
-    public void setRegion(String region) {
-        this.region = region;
-    }
+	public void setDistributionFinished(byte distributionFinished) {
+		this.distributionFinished = distributionFinished;
+	}
 
-    public String getPool() {
-        return pool;
-    }
+	public String getForwarder() {
+		return this.forwarder;
+	}
 
-    public void setPool(String pool) {
-        this.pool = pool;
-    }
+	public void setForwarder(String forwarder) {
+		this.forwarder = forwarder;
+	}
 
-    public Integer getReservationNumber() {
-        return reservationNumber;
-    }
+	public String getForwarderDescription() {
+		return this.forwarderDescription;
+	}
 
-    public void setReservationNumber(Integer reservationNumber) {
-        this.reservationNumber = reservationNumber;
-    }
+	public void setForwarderDescription(String forwarderDescription) {
+		this.forwarderDescription = forwarderDescription;
+	}
 
-    public Date getLoadingDate() {
-        return loadingDate;
-    }
+	public int getKilograms() {
+		return this.kilograms;
+	}
 
-    public void setLoadingDate(Date loadingDate) {
-        this.loadingDate = loadingDate;
-    }
+	public void setKilograms(int kilograms) {
+		this.kilograms = kilograms;
+	}
 
-    public Date getUnloadingDate() {
-        return unloadingDate;
-    }
+	public Date getLastModifiedDate() {
+		return this.lastModifiedDate;
+	}
 
-    public void setUnloadingDate(Date unloadingDate) {
-        this.unloadingDate = unloadingDate;
-    }
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
+	}
 
-    public String getForwarder() {
-        return forwarder;
-    }
+	public int getLiters() {
+		return this.liters;
+	}
 
-    public void setForwarder(String forwarder) {
-        this.forwarder = forwarder;
-    }
+	public void setLiters(int liters) {
+		this.liters = liters;
+	}
 
-    public String getForwarderDescription() {
-        return forwarderDescription;
-    }
+	public Date getLoadingDate() {
+		return this.loadingDate;
+	}
 
-    public void setForwarderDescription(String forwarderDescription) {
-        this.forwarderDescription = forwarderDescription;
-    }
+	public void setLoadingDate(Date loadingDate) {
+		this.loadingDate = loadingDate;
+	}
 
-    public String getCarrier() {
-        return carrier;
-    }
+	public BigInteger getOrderNumber() {
+		return this.orderNumber;
+	}
 
-    public void setCarrier(String carrier) {
-        this.carrier = carrier;
-    }
+	public void setOrderNumber(BigInteger orderNumber) {
+		this.orderNumber = orderNumber;
+	}
 
-    public String getCarrierDescription() {
-        return carrierDescription;
-    }
+	public String getPool() {
+		return this.pool;
+	}
 
-    public void setCarrierDescription(String carrierDescription) {
-        this.carrierDescription = carrierDescription;
-    }
+	public void setPool(String pool) {
+		this.pool = pool;
+	}
 
-    public String getWeightAmountNumber() {
-        return weightAmountNumber;
-    }
+	public String getPourCardNumber() {
+		return this.pourCardNumber;
+	}
 
-    public void setWeightAmountNumber(String weightAmountNumber) {
-        this.weightAmountNumber = weightAmountNumber;
-    }
+	public void setPourCardNumber(String pourCardNumber) {
+		this.pourCardNumber = pourCardNumber;
+	}
 
-    public Long getOrderNumber() {
-        return orderNumber;
-    }
+	public String getPropane() {
+		return this.propane;
+	}
 
-    public void setOrderNumber(Long orderNumber) {
-        this.orderNumber = orderNumber;
-    }
+	public void setPropane(String propane) {
+		this.propane = propane;
+	}
 
-    public String getPourCardNumber() {
-        return pourCardNumber;
-    }
+	public String getRegion() {
+		return this.region;
+	}
 
-    public void setPourCardNumber(String pourCardNumber) {
-        this.pourCardNumber = pourCardNumber;
-    }
+	public void setRegion(String region) {
+		this.region = region;
+	}
 
-    public Integer getWeightBefore() {
-        return weightBefore;
-    }
+	public int getReservationNumber() {
+		return this.reservationNumber;
+	}
 
-    public void setWeightBefore(Integer weightBefore) {
-        this.weightBefore = weightBefore;
-    }
+	public void setReservationNumber(int reservationNumber) {
+		this.reservationNumber = reservationNumber;
+	}
 
-    public Integer getWeightAfter() {
-        return weightAfter;
-    }
+	public int getRouteNumber() {
+		return this.routeNumber;
+	}
 
-    public void setWeightAfter(Integer weightAfter) {
-        this.weightAfter = weightAfter;
-    }
+	public void setRouteNumber(int routeNumber) {
+		this.routeNumber = routeNumber;
+	}
 
-    public Integer getKilogramsNumber() {
-        return kilogramsNumber;
-    }
+	public String getTdsNumber() {
+		return this.tdsNumber;
+	}
 
-    public void setKilogramsNumber(Integer kilogramsNumber) {
-        this.kilogramsNumber = kilogramsNumber;
-    }
+	public void setTdsNumber(String tdsNumber) {
+		this.tdsNumber = tdsNumber;
+	}
 
-    public Float getDensity() {
-        return density;
-    }
+	public float getTemperature() {
+		return this.temperature;
+	}
 
-    public void setDensity(Float density) {
-        this.density = density;
-    }
+	public void setTemperature(float temperature) {
+		this.temperature = temperature;
+	}
 
-    public Float getTemperature() {
-        return temperature;
-    }
+	public Date getUnloadingDate() {
+		return this.unloadingDate;
+	}
 
-    public void setTemperature(Float temperature) {
-        this.temperature = temperature;
-    }
+	public void setUnloadingDate(Date unloadingDate) {
+		this.unloadingDate = unloadingDate;
+	}
 
-    public String getPropane() {
-        return propane;
-    }
+	public int getWeightAfter() {
+		return this.weightAfter;
+	}
 
-    public void setPropane(String propane) {
-        this.propane = propane;
-    }
+	public void setWeightAfter(int weightAfter) {
+		this.weightAfter = weightAfter;
+	}
 
-    public Driver getDriver() {
-        return driver;
-    }
+	public String getWeightAmountNumber() {
+		return this.weightAmountNumber;
+	}
 
-    public void setDriver(Driver driver) {
-        this.driver = driver;
-    }
+	public void setWeightAmountNumber(String weightAmountNumber) {
+		this.weightAmountNumber = weightAmountNumber;
+	}
 
-    public Truck getTruck() {
-        return truck;
-    }
+	public int getWeightBefore() {
+		return this.weightBefore;
+	}
 
-    public void setTruck(Truck truck) {
-        this.truck = truck;
-    }
+	public void setWeightBefore(int weightBefore) {
+		this.weightBefore = weightBefore;
+	}
 
-    public Product getProduct() {
-        return product;
-    }
+	public Driver getDriverBean() {
+		return this.driverBean;
+	}
 
-    public void setProduct(Product product) {
-        this.product = product;
-    }
+	public void setDriverBean(Driver driverBean) {
+		this.driverBean = driverBean;
+	}
+	
+	public FuelType getFuelTypeBean() {
+		return this.fuelTypeBean;
+	}
 
-    public SemiTrailer getSemiTrailer() {
-        return semiTrailer;
-    }
+	public void setFuelTypeBean(FuelType fuelTypeBean) {
+		this.fuelTypeBean = fuelTypeBean;
+	}
+	
+	public Station getStationBean() {
+		return this.stationBean;
+	}
 
-    public void setSemiTrailer(SemiTrailer semiTrailer) {
-        this.semiTrailer = semiTrailer;
-    }
+	public void setStationBean(Station stationBean) {
+		this.stationBean = stationBean;
+	}
+	
+	public Terminal getTerminal1() {
+		return this.terminal1;
+	}
 
-    public Terminal getTerminal() {
-        return terminal;
-    }
+	public void setTerminal1(Terminal terminal1) {
+		this.terminal1 = terminal1;
+	}
+	
+	public Terminal getTerminal2() {
+		return this.terminal2;
+	}
 
-    public void setTerminal(Terminal terminal) {
-        this.terminal = terminal;
-    }
+	public void setTerminal2(Terminal terminal2) {
+		this.terminal2 = terminal2;
+	}
+	
+	public Vehicle getVehicle1() {
+		return this.vehicle1;
+	}
 
-    public Terminal getUnloadTerminal() {
-        return unloadTerminal;
-    }
+	public void setVehicle1(Vehicle vehicle1) {
+		this.vehicle1 = vehicle1;
+	}
+	
+	public Vehicle getVehicle2() {
+		return this.vehicle2;
+	}
 
-    public void setUnloadTerminal(Terminal unloadTerminal) {
-        this.unloadTerminal = unloadTerminal;
-    }
-
-    public Station getStation() {
-        return station;
-    }
-
-    public void setStation(Station station) {
-        this.station = station;
-    }
+	public void setVehicle2(Vehicle vehicle2) {
+		this.vehicle2 = vehicle2;
+	}
+	
 }
