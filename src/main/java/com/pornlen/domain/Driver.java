@@ -12,19 +12,14 @@ import java.util.List;
  */
 @Entity
 @Table(name="driver")
-public class Driver implements Serializable {
+public class Driver extends AbstractEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
-	private int id;
 
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="created_date", nullable=false)
 	private Date createdDate;
 
-	private byte deleted;
+	private boolean deleted;
 
 	@Column(name="first_name", length=255)
 	private String firstName;
@@ -32,10 +27,6 @@ public class Driver implements Serializable {
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="last_login_date")
 	private Date lastLoginDate;
-
-    @Temporal( TemporalType.TIMESTAMP)
-	@Column(name="last_modified_date", nullable=false)
-	private Date lastModifiedDate;
 
 	@Column(name="last_name", length=255)
 	private String lastName;
@@ -48,54 +39,34 @@ public class Driver implements Serializable {
 
 	@Column(length=255)
 	private String pin;
-
-	//bi-directional many-to-one association to ApplicationUser
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="last_modified_by", nullable=false)
-	private ApplicationUser applicationUser1;
-
-	//bi-directional many-to-one association to ApplicationUser
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="created_by", nullable=false)
-	private ApplicationUser applicationUser2;
-
-	//bi-directional one-to-one association to DriverContract
-	@OneToOne(mappedBy="driverBean", fetch=FetchType.LAZY)
-	private DriverContract driverContract;
-
-	//bi-directional many-to-one association to Schedule
-	@OneToMany(mappedBy="driverBean")
-	private List<Schedule> schedules;
-
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "drivercontract", catalog = "pornlen", joinColumns = { 
+			@JoinColumn(name = "contract", nullable = false, updatable = false) }, 
+			inverseJoinColumns = { @JoinColumn(name = "driver", nullable = false, updatable = false) })
+	private List<Contract> contract;
+	
     public Driver() {
     }
 
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public Date getCreatedDate() {
-		return this.createdDate;
+		return createdDate;
 	}
 
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 
-	public byte getDeleted() {
-		return this.deleted;
+	public boolean isDeleted() {
+		return deleted;
 	}
 
-	public void setDeleted(byte deleted) {
+	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
 
 	public String getFirstName() {
-		return this.firstName;
+		return firstName;
 	}
 
 	public void setFirstName(String firstName) {
@@ -103,23 +74,15 @@ public class Driver implements Serializable {
 	}
 
 	public Date getLastLoginDate() {
-		return this.lastLoginDate;
+		return lastLoginDate;
 	}
 
 	public void setLastLoginDate(Date lastLoginDate) {
 		this.lastLoginDate = lastLoginDate;
 	}
 
-	public Date getLastModifiedDate() {
-		return this.lastModifiedDate;
-	}
-
-	public void setLastModifiedDate(Date lastModifiedDate) {
-		this.lastModifiedDate = lastModifiedDate;
-	}
-
 	public String getLastName() {
-		return this.lastName;
+		return lastName;
 	}
 
 	public void setLastName(String lastName) {
@@ -127,7 +90,7 @@ public class Driver implements Serializable {
 	}
 
 	public String getLocation() {
-		return this.location;
+		return location;
 	}
 
 	public void setLocation(String location) {
@@ -135,7 +98,7 @@ public class Driver implements Serializable {
 	}
 
 	public String getPassword() {
-		return this.password;
+		return password;
 	}
 
 	public void setPassword(String password) {
@@ -143,43 +106,23 @@ public class Driver implements Serializable {
 	}
 
 	public String getPin() {
-		return this.pin;
+		return pin;
 	}
 
 	public void setPin(String pin) {
 		this.pin = pin;
 	}
 
-	public ApplicationUser getApplicationUser1() {
-		return this.applicationUser1;
+	public List<Contract> getContract() {
+		return contract;
 	}
 
-	public void setApplicationUser1(ApplicationUser applicationUser1) {
-		this.applicationUser1 = applicationUser1;
+	public void setContract(List<Contract> contract) {
+		this.contract = contract;
 	}
+
+    
+
 	
-	public ApplicationUser getApplicationUser2() {
-		return this.applicationUser2;
-	}
-
-	public void setApplicationUser2(ApplicationUser applicationUser2) {
-		this.applicationUser2 = applicationUser2;
-	}
-	
-	public DriverContract getDriverContract() {
-		return this.driverContract;
-	}
-
-	public void setDriverContract(DriverContract driverContract) {
-		this.driverContract = driverContract;
-	}
-	
-	public List<Schedule> getSchedules() {
-		return this.schedules;
-	}
-
-	public void setSchedules(List<Schedule> schedules) {
-		this.schedules = schedules;
-	}
 	
 }
