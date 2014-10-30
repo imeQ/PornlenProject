@@ -32,10 +32,6 @@ public class Schedule extends AbstractEntity {
 
     private int kilograms;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "last_modified_date", nullable = false)
-    private Date lastModifiedDate;
-
     private int liters;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -84,12 +80,11 @@ public class Schedule extends AbstractEntity {
     //bi-directional many-to-one association to Driver
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "driver")
-    private Driver driverBean;
+    private Driver driver;
 
-    //bi-directional many-to-one association to FuelType
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fuel_type")
-    private FuelType fuelTypeBean;
+    @JoinColumn(name = "schedules")
+    private FuelType fuelType;
 
     //bi-directional many-to-one association to Station
     @ManyToOne(fetch = FetchType.LAZY)
@@ -173,14 +168,6 @@ public class Schedule extends AbstractEntity {
 
     public void setKilograms(int kilograms) {
         this.kilograms = kilograms;
-    }
-
-    public Date getLastModifiedDate() {
-        return this.lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(Date lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
     }
 
     public int getLiters() {
@@ -303,20 +290,20 @@ public class Schedule extends AbstractEntity {
         this.weightBefore = weightBefore;
     }
 
-    public Driver getDriverBean() {
-        return this.driverBean;
+    public Driver getDriver() {
+        return driver;
     }
 
-    public void setDriverBean(Driver driverBean) {
-        this.driverBean = driverBean;
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 
-    public FuelType getFuelTypeBean() {
-        return this.fuelTypeBean;
+    public FuelType getFuelType() {
+        return fuelType;
     }
 
-    public void setFuelTypeBean(FuelType fuelTypeBean) {
-        this.fuelTypeBean = fuelTypeBean;
+    public void setFuelType(FuelType fuelType) {
+        this.fuelType = fuelType;
     }
 
     public Station getStation() {
