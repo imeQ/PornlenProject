@@ -36,9 +36,8 @@ public class Vehicle implements Serializable {
     @OneToMany(mappedBy = "truck")
     private List<Schedule> schedulesTruck;
 
-    //bi-directional many-to-one association to Schedule
-    @OneToMany(mappedBy = "semiTruck")
-    private List<Schedule> schedulesSemiTruck;
+    @OneToMany(mappedBy = "semiTrailer")
+    private List<Schedule> schedulesSemiTrailer;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "vehiclecontract", catalog = "pornlen", joinColumns = {
@@ -97,12 +96,12 @@ public class Vehicle implements Serializable {
         this.schedulesTruck = schedulesTruck;
     }
 
-    public List<Schedule> getSchedulesSemiTruck() {
-        return schedulesSemiTruck;
+    public List<Schedule> getSchedulesSemiTrailer() {
+        return schedulesSemiTrailer;
     }
 
-    public void setSchedulesSemiTruck(List<Schedule> schedulesSemiTruck) {
-        this.schedulesSemiTruck = schedulesSemiTruck;
+    public void setSchedulesSemiTrailer(List<Schedule> schedulesSemiTrailer) {
+        this.schedulesSemiTrailer = schedulesSemiTrailer;
     }
 
     public List<Contract> getContract() {
