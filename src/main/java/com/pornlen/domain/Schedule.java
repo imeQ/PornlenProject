@@ -115,12 +115,12 @@ public class Schedule implements Serializable {
     //bi-directional many-to-one association to Vehicle
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "truck")
-    private Vehicle vehicle1;
+    private Vehicle truck;
 
     //bi-directional many-to-one association to Vehicle
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "semi_trailer")
-    private Vehicle vehicle2;
+    private Vehicle semiTrailer;
 
     public Schedule() {
     }
@@ -357,20 +357,19 @@ public class Schedule implements Serializable {
         this.loadTerminal = loadTerminal;
     }
 
-    public Vehicle getVehicle1() {
-        return this.vehicle1;
+    public Vehicle getTruck() {
+        return truck;
     }
 
-    public void setVehicle1(Vehicle vehicle1) {
-        this.vehicle1 = vehicle1;
+    public void setTruck(Vehicle truck) {
+        this.truck = truck;
     }
 
-    public Vehicle getVehicle2() {
-        return this.vehicle2;
+    public Vehicle getSemiTrailer() {
+        return semiTrailer;
     }
 
-    public void setVehicle2(Vehicle vehicle2) {
-        this.vehicle2 = vehicle2;
+    public void setSemiTrailer(Vehicle semiTrailer) {
+        this.semiTrailer = semiTrailer;
     }
-
 }
