@@ -13,9 +13,6 @@ import java.util.List;
 public class Station extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastModifiedDate;
-
     @Column(length = 255)
     private String mobStationNumber;
 

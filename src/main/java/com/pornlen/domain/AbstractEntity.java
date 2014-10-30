@@ -13,7 +13,7 @@ public abstract class AbstractEntity {
 
     @Version
     @NotNull
-    private Date lastModifiedDate;
+    public Date lastModifiedDate;
 
     public long getId() {
         return id;

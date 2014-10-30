@@ -20,9 +20,6 @@ public class Terminal extends AbstractEntity {
 
     private String expectedUnloadingAddress;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastModifiedDate;
-
     @Column(length = 255)
     private String name;
 

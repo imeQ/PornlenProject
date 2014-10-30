@@ -1,7 +1,6 @@
 package com.pornlen.domain;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -11,13 +10,8 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "schedule")
-public class Schedule implements Serializable {
+public class Schedule extends AbstractEntity {
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(unique = true, nullable = false)
-    private String id;
 
     @Column(length = 255)
     private String carrier;
@@ -104,12 +98,12 @@ public class Schedule implements Serializable {
 
     //bi-directional many-to-one association to Terminal
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "terminal")
+    @JoinColumn(name = "unloadSchedules")
     private Terminal unloadTerminal;
 
     //bi-directional many-to-one association to Terminal
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "terminal")
+    @JoinColumn(name = "loadSchedules")
     private Terminal loadTerminal;
 
     //bi-directional many-to-one association to Vehicle
@@ -123,14 +117,6 @@ public class Schedule implements Serializable {
     private Vehicle semiTrailer;
 
     public Schedule() {
-    }
-
-    public String getId() {
-        return this.id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getCarrier() {

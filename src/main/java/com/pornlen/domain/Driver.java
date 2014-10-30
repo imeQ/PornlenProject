@@ -12,14 +12,8 @@ import java.util.List;
  */
 @Entity
 @Table(name="driver")
-public class Driver extends AbstractEntity implements Serializable {
+public class Driver extends AuditableEntity {
 	private static final long serialVersionUID = 1L;
-
-    @Temporal( TemporalType.TIMESTAMP)
-	@Column(name="created_date", nullable=false)
-	private Date createdDate;
-
-	private boolean deleted;
 
 	@Column(name="first_name", length=255)
 	private String firstName;
@@ -48,22 +42,6 @@ public class Driver extends AbstractEntity implements Serializable {
 	
     public Driver() {
     }
-
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public boolean isDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
 
 	public String getFirstName() {
 		return firstName;

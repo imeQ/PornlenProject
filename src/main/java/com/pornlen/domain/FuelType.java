@@ -12,17 +12,13 @@ import java.util.List;
  */
 @Entity
 @Table(name="fuel_type")
-public class FuelType implements Serializable {
+public class FuelType extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
 	private int id;
-
-    @Temporal( TemporalType.TIMESTAMP)
-	@Column(name="last_modified_date", nullable=false)
-	private Date lastModifiedDate;
 
 	@Column(length=255)
 	private String name;
@@ -33,22 +29,6 @@ public class FuelType implements Serializable {
 
     public FuelType() {
     }
-
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public Date getLastModifiedDate() {
-		return this.lastModifiedDate;
-	}
-
-	public void setLastModifiedDate(Date lastModifiedDate) {
-		this.lastModifiedDate = lastModifiedDate;
-	}
 
 	public String getName() {
 		return this.name;

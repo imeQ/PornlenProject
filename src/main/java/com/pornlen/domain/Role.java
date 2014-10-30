@@ -11,13 +11,8 @@ import java.util.List;
  */
 @Entity
 @Table(name="role")
-public class Role implements Serializable {
+public class Role extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
-	private int id;
 
 	@Column(length=100)
 	private String description;
@@ -31,20 +26,11 @@ public class Role implements Serializable {
 	@Column(name="role_order", nullable=false)
 	private int roleOrder;
 
-	//bi-directional many-to-one association to ApplicationUserRole
-	@OneToMany(mappedBy="roleBean")
+	@OneToMany(mappedBy="role")
 	private List<ApplicationUserRole> applicationUserRoles;
 
     public Role() {
     }
-
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getDescription() {
 		return this.description;
