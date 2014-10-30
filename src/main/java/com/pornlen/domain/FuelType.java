@@ -15,16 +15,11 @@ import java.util.List;
 public class FuelType extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
-	private int id;
-
 	@Column(length=255)
 	private String name;
 
 	//bi-directional many-to-one association to Schedule
-	@OneToMany(mappedBy="fuelTypeBean")
+	@OneToMany(mappedBy="fuelType")
 	private List<Schedule> schedules;
 
     public FuelType() {
