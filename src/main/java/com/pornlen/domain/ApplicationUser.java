@@ -31,13 +31,6 @@ public class ApplicationUser implements Serializable {
 	@OneToOne(mappedBy="applicationUserBean", fetch=FetchType.LAZY)
 	private ApplicationUserRole applicationUserRole;
 
-	//bi-directional many-to-one association to Driver
-	@OneToMany(mappedBy="applicationUser1")
-	private List<Driver> drivers1;
-
-	//bi-directional many-to-one association to Driver
-	@OneToMany(mappedBy="applicationUser2")
-	private List<Driver> drivers2;
 
     public ApplicationUser() {
     }
@@ -73,21 +66,5 @@ public class ApplicationUser implements Serializable {
 	public void setApplicationUserRole(ApplicationUserRole applicationUserRole) {
 		this.applicationUserRole = applicationUserRole;
 	}
-	
-	public List<Driver> getDrivers1() {
-		return this.drivers1;
-	}
 
-	public void setDrivers1(List<Driver> drivers1) {
-		this.drivers1 = drivers1;
-	}
-	
-	public List<Driver> getDrivers2() {
-		return this.drivers2;
-	}
-
-	public void setDrivers2(List<Driver> drivers2) {
-		this.drivers2 = drivers2;
-	}
-	
 }

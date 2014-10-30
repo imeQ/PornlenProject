@@ -44,7 +44,7 @@ public class Vehicle implements Serializable {
     @JoinTable(name = "vehiclecontract", catalog = "pornlen", joinColumns = {
             @JoinColumn(name = "contract", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "vehicle", nullable = false, updatable = false)})
-    private List<Contract> vehicle;
+    private List<Contract> contract;
 
     public Vehicle() {
     }
@@ -105,11 +105,11 @@ public class Vehicle implements Serializable {
         this.schedulesSemiTruck = schedulesSemiTruck;
     }
 
-    public List<Contract> getVehicle() {
-        return vehicle;
+    public List<Contract> getContract() {
+        return contract;
     }
 
-    public void setVehicle(List<Contract> vehicle) {
-        this.vehicle = vehicle;
+    public void setContract(List<Contract> contract) {
+        this.contract = contract;
     }
 }

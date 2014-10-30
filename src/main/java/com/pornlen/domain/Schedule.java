@@ -99,8 +99,8 @@ public class Schedule implements Serializable {
 
     //bi-directional many-to-one association to Station
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "station")
-    private Station stationBean;
+    @JoinColumn(name = "schedules")
+    private Station station;
 
     //bi-directional many-to-one association to Terminal
     @ManyToOne(fetch = FetchType.LAZY)
@@ -333,12 +333,12 @@ public class Schedule implements Serializable {
         this.fuelTypeBean = fuelTypeBean;
     }
 
-    public Station getStationBean() {
-        return this.stationBean;
+    public Station getStation() {
+        return station;
     }
 
-    public void setStationBean(Station stationBean) {
-        this.stationBean = stationBean;
+    public void setStation(Station station) {
+        this.station = station;
     }
 
     public Terminal getUnloadTerminal() {
